@@ -1,0 +1,44 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          resize2fs_once
+# Required-Start:
+# Required-Stop:
+# Default-Start: 3
+# Default-Stop:
+# Short-Description: Create /sdcard partition and copy Patches
+# Description:
+### END INIT INFO
+. /lib/lsb/init-functions
+case "$1" in
+  start)
+    log_daemon_msg "Starting resize2fs_once"
+    START=$(parted --machine /dev/mmcblk0 unit MB print free | awk -F ':' '/free;$/ { start = $2 } END {print start + 1}')
+    if [ "$START" -eq "$START" ]; then
+      # make /sdcard partition and move patches
+      parted --script --align optimal /dev/mmcblk0 unit MB mkpart primary ext4 "$START" "100%" &&
+      mkfs.ext4 /dev/mmcblk0p3 &&
+      mount /sdcard &&
+      mv /usbdrive/Patches /sdcard/
+
+      # set ownership
+      chmod +xr /root
+      chown --recursive music:music /sdcard
+      chown --recursive music:music /usbdrive
+      chown --recursive music:music /home/music/Organelle_OS
+
+      # make filesystem read only
+      sed -i '/^PARTUUID/s/defaults/defaults,ro/g' /etc/fstab
+
+      # remove run-once script
+      update-rc.d resize2fs_once remove &&
+      rm /etc/init.d/resize2fs_once &&
+      log_end_msg $?
+    else
+      log_end_msg "Error resize2fs_once"
+    fi
+    ;;
+  *)
+    echo "Usage: $0 start" >&2
+    exit 3
+    ;;
+esac

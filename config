@@ -6,5 +6,6 @@ KEYBOARD_LAYOUT="English (US)"
 TIMEZONE_DEFAULT="Etc/UTC"
 FIRST_USER_NAME="music"
 FIRST_USER_PASS="music"
+WPA_COUNTRY="US"
 ENABLE_SSH=1
-STAGE_LIST="stage0 stage1 stage2"
+STAGE_LIST="stage0 stage1 stage2 organellem"
