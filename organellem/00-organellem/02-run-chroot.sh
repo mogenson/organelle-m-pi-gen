@@ -40,3 +40,7 @@ sed -i 's/spool 0755/spool 1777/' /usr/lib/tmpfiles.d/var.conf
 touch /tmp/dhcpcd.resolv.conf
 rm -f /etc/resolv.conf
 ln -s /tmp/dhcpcd.resolv.conf /etc/resolv.conf
+
+# Organelle OS
+cd "/home/$FIRST_USER_NAME/Organelle_OS"
+make organelle_m_deploy
