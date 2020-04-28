@@ -18,8 +18,9 @@ nodejs
 pcmanfm
 puredata
 pyliblo-utils
-python-cherrypy3
-python-pip
+python3-cherrypy3
+python3-liblo
+python3-rpi.gpio
 realvnc-vnc-server
 supercollider
 wiringpi
