@@ -80,7 +80,8 @@ append 'DefaultTimeoutStopSec=5s' "$SYSTEMCONF"
 
 # organelle OS
 rm -rf "${ROOTFS_DIR}/home/$FIRST_USER_NAME/Organelle_OS"
-git clone https://github.com/critterandguitari/Organelle_OS.git "${ROOTFS_DIR}/home/$FIRST_USER_NAME/Organelle_OS"
+git clone -b python3 --single-branch https://github.com/mogenson/Organelle_OS.git \
+    "${ROOTFS_DIR}/home/$FIRST_USER_NAME/Organelle_OS"
 
 # patches
 rm -rf "${ROOTFS_DIR}/usbdrive/Patches"
@@ -91,6 +92,7 @@ rm -rf "${ROOTFS_DIR}/usbdrive/Patches/.git"
 
 # self test
 rm -rf "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches"
-git clone https://github.com/critterandguitari/Organelle_Test_Patches.git "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches" &&
+git clone https://github.com/critterandguitari/Organelle_Test_Patches.git \
+    "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches" &&
 mv "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches/Test M" "${ROOTFS_DIR}/usbdrive/Patches/Utilities"
 rm -rf "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches"
