@@ -28,6 +28,7 @@ install -m 755 files/asound.state "${ROOTFS_DIR}/var/lib/alsa/"
 append 'boot_delay=0' "$CONFIGTXT"
 append 'disable_splash=1' "$CONFIGTXT"
 append 'dtoverlay=gpio-poweroff,gpiopin=12,active_low=1' "$CONFIGTXT"
+append 'dtoverlay=gpio-shutdown,gpio_pin=13' "$CONFIGTXT"
 append 'dtoverlay=midi-uart0' "$CONFIGTXT"
 append 'dtoverlay=pi3-act-led,gpio=24,activelow=on' "$CONFIGTXT"
 append 'dtoverlay=pi3-miniuart-bt' "$CONFIGTXT"
@@ -80,7 +81,8 @@ append 'DefaultTimeoutStopSec=5s' "$SYSTEMCONF"
 
 # organelle OS
 rm -rf "${ROOTFS_DIR}/home/$FIRST_USER_NAME/Organelle_OS"
-git clone https://github.com/critterandguitari/Organelle_OS.git "${ROOTFS_DIR}/home/$FIRST_USER_NAME/Organelle_OS"
+git clone -b systemd --single-branch https://github.com/mogenson/Organelle_OS.git \
+    "${ROOTFS_DIR}/home/$FIRST_USER_NAME/Organelle_OS"
 
 # patches
 rm -rf "${ROOTFS_DIR}/usbdrive/Patches"
@@ -91,6 +93,7 @@ rm -rf "${ROOTFS_DIR}/usbdrive/Patches/.git"
 
 # self test
 rm -rf "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches"
-git clone https://github.com/critterandguitari/Organelle_Test_Patches.git "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches" &&
+git clone https://github.com/critterandguitari/Organelle_Test_Patches.git \
+    "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches" &&
 mv "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches/Test M" "${ROOTFS_DIR}/usbdrive/Patches/Utilities"
 rm -rf "${ROOTFS_DIR}/usbdrive/Organelle_Test_Patches"

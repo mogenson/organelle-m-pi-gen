@@ -14,6 +14,7 @@ liblo-tools
 luarocks
 lxterminal
 mpg123
+nftables
 nodejs
 pcmanfm
 puredata
